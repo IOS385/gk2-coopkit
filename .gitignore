@@ -1,0 +1,9 @@
+# build output
+bin/
+obj/
+
+# local machine paths
+build/Local.props
+
+# release archives live as GitHub release assets, not in the tree
+dist/*.zip

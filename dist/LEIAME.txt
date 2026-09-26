@@ -1,0 +1,119 @@
+GK2 Co-op Kit 1.2.0
+Graveyard Keeper 2 — liga o multiplayer que já vem dentro do jogo
+===============================================================
+
+O QUE E ISSO
+
+O Graveyard Keeper 2 foi lancado como jogo single-player, mas a build traz a pilha de
+rede inteira compilada: Unity Netcode, transporte, sistema de comandos, sincronizacao de
+save e ate as janelas de lobby. O que a Lazy Bear tirou foram os botoes do menu e os
+prefabs das janelas. O codigo ficou.
+
+Este mod faz as chamadas que o jogo deixou de fazer. Nada aqui e netcode escrito do zero
+— e a API do proprio jogo, acionada por tecla.
+
+Estado: EXPERIMENTAL. O host sobe e a partida continua jogavel. A parte de dois
+jogadores de verdade ainda nao foi validada por ninguem.
+
+
+INSTALACAO (nos dois computadores)
+
+1. Feche o Graveyard Keeper 2.
+2. Extraia TUDO deste zip para a pasta do jogo — aquela que tem o GraveyardKeeper2.exe.
+   Normalmente:
+   C:\Program Files (x86)\Steam\steamapps\common\Graveyard Keeper 2\
+3. Confira que ficou assim:
+   ...\Graveyard Keeper 2\winhttp.dll
+   ...\Graveyard Keeper 2\doorstop_config.ini
+   ...\Graveyard Keeper 2\BepInEx\core\...
+   ...\Graveyard Keeper 2\BepInEx\plugins\GK2.CoopKit.dll
+4. Abra o jogo uma vez e feche. Isso gera a pasta BepInEx\config.
+
+Antes de testar, recomendo desligar o Steam Cloud do jogo:
+Biblioteca > Graveyard Keeper 2 > Propriedades > Geral > desmarcar Steam Cloud.
+Assim nenhum estado esquisito sobe para a nuvem.
+
+
+COMO JOGAR JUNTO (por Radmin VPN)
+
+Os dois precisam estar na mesma rede do Radmin VPN e enxergar um ao outro.
+
+QUEM HOSPEDA:
+  1. Abre o jogo e carrega uma campanha normalmente.
+  2. Aperta F6.
+  3. O console do BepInEx lista os enderecos locais. Passe para o outro jogador o que
+     comeca com 26. — esse e o endereco do Radmin.
+
+QUEM ENTRA:
+  1. Abre BepInEx\config\gk2.coopkit.cfg num editor de texto.
+  2. Em [Join], preenche HostAddress com o endereco 26.x.x.x que o host passou.
+  3. Salva, abre o jogo, carrega uma campanha normalmente.
+  4. Aperta F8.
+
+Depois disso, os dois apertam F9 e comparam: no host, "connected clients" deve subir
+para 2.
+
+Se a conexao subir, quem hospeda pode apertar F5 para enviar o mundo dele ao outro
+(e o mecanismo de entrada tardia do proprio jogo).
+
+
+COMO USAR SEM DECORAR TECLA
+
+Tem um botao "Co-op Kit" no menu principal, e a tecla F4 abre a mesma tela dentro do
+jogo. Ela mostra o estado da conexao, lista os seus enderecos (marcando qual e o do
+Radmin) e traz os botoes de hospedar, entrar, enviar o mundo e parar.
+
+
+TECLAS (atalhos da mesma coisa)
+
+  F4  abre a tela do Co-op Kit
+  F6  hospedar agora (carregue uma campanha antes)
+  F8  entrar no host configurado
+  F5  host: enviar o save para quem estiver conectado
+  F7  parar de hospedar
+  F9  relatorio do estado atual -> BepInEx\coopkit\
+  F1  liga/desliga o medidor de trafego; ao desligar, escreve o relatorio
+
+O medidor (F1) e util mesmo jogando sozinho: ele conta o que o jogo TENTARIA enviar a um
+segundo jogador. Ligue, jogue normalmente por uma hora, desligue — e o relatorio diz quais
+sistemas do jogo realmente sabem se replicar.
+
+
+O QUE ESPERAR (seja realista)
+
+- Hospedar funciona e nao atrapalha a partida: sem ninguem conectado, e o seu jogo normal
+  com uma porta aberta.
+- Apenas 3 metodos do jogo inteiro estao marcados para replicar. Mesmo com a conexao de
+  pe, a maior parte do mundo (inventario, construcao, quests, NPCs, tempo) NAO propaga.
+- O fluxo oficial de entrada do cliente estava quebrado no jogo: Client_StartGame comeca
+  fechando uma janela cujo prefab nao existe no build. Esta versao corrige isso com um
+  patch que pula essa linha e roda o resto. Ainda nao foi testado com dois jogadores.
+
+Ou seja: isso e uma base de teste e investigacao, nao um mod de co-op pronto. Quem quer
+jogar co-op de verdade hoje deve olhar o Tomb Many Keepers:
+https://github.com/ZlordHUN/GYK2-Tomb-Many-Keepers
+
+
+SEGURANCA DO SAVE
+
+Use uma partida que voce nao se importe em perder. O mod nao grava saves nem mexe em
+arquivo nenhum, mas altera estado vivo do jogo, e o proprio codigo de rede do GK2 tem
+bugs conhecidos (detalhados no README do projeto).
+
+
+DESINSTALAR
+
+Apague da pasta do jogo: winhttp.dll, doorstop_config.ini, changelog.txt e a pasta
+BepInEx\. O jogo volta ao estado original.
+
+
+CREDITOS E LICENCAS
+
+BepInEx 5.4.23.5 (x64) — https://github.com/BepInEx/BepInEx — redistribuido aqui para
+facilitar a instalacao, sob a licenca do proprio projeto.
+
+Tomb Many Keepers (MIT, ZlordHUN e Zonda001) —
+https://github.com/ZlordHUN/GYK2-Tomb-Many-Keepers — de onde vieram as tecnicas de UI:
+o botao clonado no menu e a ideia de montar telas na UIDialogWindow nativa.
+
+Este mod nao e afiliado a Lazy Bear Games nem a tinyBuild.
