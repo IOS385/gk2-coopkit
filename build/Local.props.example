@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <!-- Copy this file to Local.props and point it at your install if it differs. -->
+    <GameDir>C:/Program Files (x86)/Steam/steamapps/common/Graveyard Keeper 2</GameDir>
+    <BepInExDir>$(GameDir)/BepInEx</BepInExDir>
+  </PropertyGroup>
+</Project>
